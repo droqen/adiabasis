@@ -1,6 +1,7 @@
 extends Object
 class_name Parcel
 var position : Vector2
+var velocity : Vector2
 var _c : Chunker = null
 var _c_chunk : Vector2i
 var chunk : Vector2i :
@@ -8,6 +9,10 @@ var chunk : Vector2i :
 
 var name : String = "?"
 func _to_string(): return name
+
+var heat : float = 100.0
+var radius : float :
+	get : return heat * 0.3
 
 func register(chunker : Chunker) -> void:
 	if self._c != chunker:
