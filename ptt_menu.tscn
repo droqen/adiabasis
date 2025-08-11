@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cypy2ch8e47w2"]
+
+[ext_resource type="Script" uid="uid://d2fq8n81uycqn" path="res://ptt_menu.gd" id="1_c2trk"]
+
+[sub_resource type="SystemFont" id="SystemFont_4vp17"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gyy8n"]
+font = SubResource("SystemFont_4vp17")
+font_size = 32
+
+[node name="PttMenu" type="Node2D"]
+script = ExtResource("1_c2trk")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "[x]
+[ ] this one"
+label_settings = SubResource("LabelSettings_gyy8n")
