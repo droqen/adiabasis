@@ -18,10 +18,11 @@ func _ready() -> void:
 		for y in range(0, simheight - period, period):
 			var p = Parcel.new()
 			p.position = Vector2(x+randf()*period, y+randf()*period)
-			if x < simwidth/2:
-				p.heat = 0.5 + p.position.y * ADIABATIC_LAPSE_RATE
-			else:
-				p.heat = 0.9 + p.position.y * ADIABATIC_LAPSE_RATE
+			p.heat = 0.5 + 0.5*randf()
+			#if x < simwidth/2:
+				#p.heat = 0.5 + p.position.y * ADIABATIC_LAPSE_RATE
+			#else:
+				#p.heat = 0.9 + p.position.y * ADIABATIC_LAPSE_RATE
 			p.register(GLOBAL_CHUNKER)
 			parcels.append(p)
 func _physics_process(_delta: float) -> void:
