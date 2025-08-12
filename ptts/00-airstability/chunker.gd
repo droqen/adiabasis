@@ -1,7 +1,7 @@
 extends Node
 class_name Chunker
 
-const CHUNK_SIZE : int = 50
+const CHUNK_SIZE : int = 30
 const CHUNK_SIZE_RECIP : float = 1.0 / CHUNK_SIZE
 const CHUNK_XMID : int = 0x00008000
 const CHUNK_YMID : int = 0x00008000
@@ -64,16 +64,17 @@ func pos2chunk(pos : Vector2) -> Vector2i:
 func chunk2index(chunk : Vector2i) -> int:
 	return CHUNK_XMASK * chunk.x + chunk.y
 
+var cached_3x3s : Dictionary[Vector2i,Array]
+
+func _physics_process(_delta: float) -> void:
+	cached_3x3s.clear()
+
 func getall_3x3(chunk : Vector2i) -> Array:
-	var index : int = chunk2index(chunk)
-	return (
-		chunked_objects.get(index, [])
-		+ chunked_objects.get(index - 1, [])
-		+ chunked_objects.get(index + 1, [])
-		+ chunked_objects.get(index - 1 - CHUNK_XMULT, [])
-		+ chunked_objects.get(index + 1 - CHUNK_XMULT, [])
-		+ chunked_objects.get(index - 1 + CHUNK_XMULT, [])
-		+ chunked_objects.get(index + 1 + CHUNK_XMULT, [])
-		+ chunked_objects.get(index - CHUNK_XMULT, [])
-		+ chunked_objects.get(index + CHUNK_XMULT, [])
-	)
+	if cached_3x3s.has(chunk): return cached_3x3s[chunk]
+	#var index : int = chunk2index(chunk)
+	var objects = []
+	for dx in [-1,0,1]:
+		for dy in [-1,0,1]:
+			objects += chunked_objects.get(chunk2index(chunk + Vector2i(dx,dy)), [])
+	cached_3x3s[chunk] = objects
+	return objects

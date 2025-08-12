@@ -10,9 +10,9 @@ var chunk : Vector2i :
 var name : String = "?"
 func _to_string(): return name
 
-var heat : float = 100.0
+var heat : float = 1.0
 var radius : float :
-	get : return heat * 0.3
+	get : return heat * 30
 
 func register(chunker : Chunker) -> void:
 	if self._c != chunker:
